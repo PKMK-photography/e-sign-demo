@@ -1,12 +1,12 @@
 import {useState, useEffect, useRef} from 'react';
 import contractImage from '../../assets/e-sign-demo-contract.png';
+const contract = new Image();
+contract.src = contractImage;
 
 const Canvas = props => {
     const canvasRef = useRef(null),
           [context, setContext] = useState(null);
 
-    const contract = new Image();
-    contract.src = contractImage;
 
     useEffect(() => {
         let mouseDown = false,
