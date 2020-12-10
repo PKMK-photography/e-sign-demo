@@ -1,7 +1,28 @@
 .App {
-  height: 100vh;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 0 100px;
   display: flex;
   justify-content: center;
   align-items: center;
   background: #eee;
+}
+
+button {
+  height: 45px;
+  width: 100px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+}
+
+#save-btn {
+  margin: 5px 5px 0px 0px;
+  background: #4F66FF;
+  color: white;
+}
+
+#clear-btn {
+  background: #FF4F4F;
+  color: white;
 }

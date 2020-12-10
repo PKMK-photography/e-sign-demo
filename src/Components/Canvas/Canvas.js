@@ -5,15 +5,15 @@ const Canvas = props => {
     const canvasRef = useRef(null),
           [context, setContext] = useState(null);
 
+    const contract = new Image();
+    contract.src = contractImage;
+
     useEffect(() => {
-        const contract = new Image();
-        contract.src = contractImage;
         let mouseDown = false,
             start = {x: 0, y: 0},
             end = {x: 0, y: 0},
             canvasOffsetLeft = 0,
             canvasOffsetTop = 0;
-
 
         if(context){
             contract.onload = function(){
@@ -75,9 +75,33 @@ const Canvas = props => {
                 setContext(renderCtx);
             }
         }
+
+        return function clear(){
+            canvasRef.current.removeEventListener('mousedown', handleMouseDown);
+            canvasRef.current.removeEventListener('mouseup', handleMouseUp);
+            canvasRef.current.removeEventListener('mousemove', handleMouseMove);
+        }
     }, [context]);
 
-    return <canvas height='900px' width='695px' ref={canvasRef} {...props}/>
+    const saveContract = () => {
+        const image = canvasRef.current.toDataURL("image/png").replace("image/png", "image/octet-stream");
+
+        window.location.href=image;
+    }
+
+    const clearSignature = () => {
+        context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+        context.drawImage(contract, 0, 0);
+    }
+
+    return (
+        <section>
+            <canvas height='900px' width='695px' ref={canvasRef} {...props}/>
+            <br/>
+            <button id='save-btn' onClick={saveContract}>Save</button>
+            <button id='clear-btn' onClick={clearSignature}>Clear</button>
+        </section>
+    )
 }
 
 export default Canvas;
