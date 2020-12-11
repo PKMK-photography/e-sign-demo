@@ -24,15 +24,20 @@ const Canvas = props => {
 
         function handleMouseDown(e){
             mouseDown = true;
+            console.log(e)
 
             start = {
+                // x: e.clientX - canvasOffsetLeft,
                 x: e.clientX - canvasOffsetLeft,
-                y: e.clientY - canvasOffsetTop
+                // y: e.clientY - canvasOffsetTop
+                y: e.pageY - canvasOffsetTop
             };
 
             end = {
+                // x: e.clientX - canvasOffsetLeft,
                 x: e.clientX - canvasOffsetLeft,
-                y: e.clientY - canvasOffsetTop
+                // y: e.clientY - canvasOffsetTop
+                y: e.pageY - canvasOffsetTop
             }
         }
 
@@ -48,8 +53,10 @@ const Canvas = props => {
                 }
 
                 end = {
+                    // x: e.clientX - canvasOffsetLeft,
                     x: e.clientX - canvasOffsetLeft,
-                    y: e.clientY - canvasOffsetTop
+                    // y: e.clientY - canvasOffsetTop
+                    y: e.pageY - canvasOffsetTop
                 };
 
                 context.beginPath();
