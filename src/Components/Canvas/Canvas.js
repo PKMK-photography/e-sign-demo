@@ -9,7 +9,8 @@ const Canvas = props => {
 
 
     useEffect(() => {
-        let mouseDown = false,
+        let currentRef = canvasRef.current,
+            mouseDown = false,
             start = {x: 0, y: 0},
             end = {x: 0, y: 0},
             canvasOffsetLeft = 0,
@@ -61,25 +62,25 @@ const Canvas = props => {
             }
         }
 
-        if(canvasRef.current){
-            const renderCtx = canvasRef.current.getContext('2d');
+        if(currentRef){
+            const renderCtx = currentRef.getContext('2d');
 
             if(renderCtx){
-                canvasRef.current.addEventListener('mousedown', handleMouseDown);
-                canvasRef.current.addEventListener('mouseup', handleMouseUp);
-                canvasRef.current.addEventListener('mousemove', handleMouseMove);
+                currentRef.addEventListener('mousedown', handleMouseDown);
+                currentRef.addEventListener('mouseup', handleMouseUp);
+                currentRef.addEventListener('mousemove', handleMouseMove);
                 
-                canvasOffsetLeft = canvasRef.current.offsetLeft;
-                canvasOffsetTop = canvasRef.current.offsetTop;
+                canvasOffsetLeft = currentRef.offsetLeft;
+                canvasOffsetTop = currentRef.offsetTop;
 
                 setContext(renderCtx);
             }
         }
 
         return function clear(){
-            canvasRef.current.removeEventListener('mousedown', handleMouseDown);
-            canvasRef.current.removeEventListener('mouseup', handleMouseUp);
-            canvasRef.current.removeEventListener('mousemove', handleMouseMove);
+            currentRef.removeEventListener('mousedown', handleMouseDown);
+            currentRef.removeEventListener('mouseup', handleMouseUp);
+            currentRef.removeEventListener('mousemove', handleMouseMove);
         }
     }, [context]);
 
