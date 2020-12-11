@@ -1,4 +1,5 @@
 import {useState, useEffect, useRef} from 'react';
+import axios from 'axios';
 import contractImage from '../../assets/e-sign-demo-contract.png';
 const contract = new Image();
 contract.src = contractImage;
@@ -89,6 +90,12 @@ const Canvas = props => {
 
     const saveContract = () => {
         const image = canvasRef.current.toDataURL("image/png").replace("image/png", "image/octet-stream");
+        
+        axios.post('/api/email', {image})
+            .then(() => {
+                console.log('done!')
+            })
+            .catch(err => console.log(err))
 
         window.location.href=image;
     }
