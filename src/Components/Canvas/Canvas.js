@@ -99,7 +99,7 @@ const Canvas = props => {
     }
 
     const adoptSignature = () => {
-        context.font = '30px Cedarville Cursive, cursive';
+        context.font = '24px Cedarville Cursive, cursive';
         context.fillText(signature, 90, 720);
         setPreviewSignature(false);
         setModalView(false); 
@@ -118,18 +118,24 @@ const Canvas = props => {
                 ? (
                     <section className='modal-backdrop'>
                         <section className='signature-modal'>
-                            <h3>Type your name</h3>
-                            <input value={signature} onChange={e => setSignature(e.target.value)}/>
-                            <button onClick={() => setPreviewSignature(true)}>Preview</button>
+                            <section id='step-one'>
+                                <h3>Step One: Type your name</h3>
+                                <input value={signature} onChange={e => setSignature(e.target.value)}/>
+                                <br/>
+                                <button onClick={() => setPreviewSignature(true)}>Preview</button>
+                            </section>
+                            <section id='step-two'>
+                                <h3>Step Two: Preview Signature</h3>
                             {previewSignature
-                                ? (
-                                    <section>
+                                ? ( 
+                                    <>
                                         <p id='signature-preview'>{signature}</p>
-                                        <button onClick={() => setPreviewSignature(false)}>Change</button>
-                                        <button id='adopt-signature' onClick={adoptSignature}>Adopt</button>
-                                    </section>
+                                        <button id='change-signature' onClick={() => setPreviewSignature(false)}>Change</button>
+                                        <button id='adopt-signature' onClick={adoptSignature}>Adopt & Sign</button>
+                                    </>
                                 )
                                 : null}
+                            </section>
                         </section>
                     </section>
                 )

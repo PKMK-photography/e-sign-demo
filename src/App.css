@@ -21,19 +21,19 @@ button {
   border: none;
 }
 
-#save-btn {
+#save-btn, #step-one button {
   margin: 5px 5px 0px 0px;
   background: #4F66FF;
   color: white;
 }
 
-#clear-btn {
+#clear-btn, #change-signature {
   background: #FF4F4F;
   color: white;
   margin-right: 5px;
 }
 
-#create-btn {
+#create-btn, #adopt-signature {
   background: #0DAB76;
   color: white;
 }
@@ -44,12 +44,51 @@ button {
   position: fixed;
   top: 0;
   background: rgba(0,0,0,.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .signature-modal {
-  height: 350px;
-  width: 800px;
+  height: 225px;
+  width: 700px;
+  box-sizing: border-box;
+  padding: 20px;
+  border-radius: 10px;
   background: white;
+  display: flex;
+  align-items: center;
+}
+
+#step-one {
+  height: 100%;
+  width: 50%;
+  box-sizing: border-box;
+  border-right: 1px solid lightgray;
+}
+
+#step-one input {
+  height: 30px;
+  width: 240px;
+  font-size: 16px;
+  border: none;
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+}
+
+#step-two {
+  height: 100%;
+  width: 50%;
+  box-sizing: border-box;
+  padding-left: 20px;
+}
+
+#step-two p {
+  margin: 10px;
+}
+
+#adopt-signature {
+  width: 140px;
 }
 
 #signature-preview {
