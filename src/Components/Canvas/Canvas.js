@@ -5,7 +5,10 @@ contract.src = contractImage;
 
 const Canvas = props => {
     const canvasRef = useRef(null),
-          [context, setContext] = useState(null);
+          [context, setContext] = useState(null),
+          [signature, setSignature] = useState(''),
+          [modalView, setModalView] = useState(false),
+          [previewSignature, setPreviewSignature] = useState(false);
 
 
     useEffect(() => {
@@ -24,19 +27,14 @@ const Canvas = props => {
 
         function handleMouseDown(e){
             mouseDown = true;
-            console.log(e)
 
             start = {
-                // x: e.clientX - canvasOffsetLeft,
                 x: e.clientX - canvasOffsetLeft,
-                // y: e.clientY - canvasOffsetTop
                 y: e.pageY - canvasOffsetTop
             };
 
             end = {
-                // x: e.clientX - canvasOffsetLeft,
                 x: e.clientX - canvasOffsetLeft,
-                // y: e.clientY - canvasOffsetTop
                 y: e.pageY - canvasOffsetTop
             }
         }
@@ -46,26 +44,24 @@ const Canvas = props => {
         }
 
         function handleMouseMove(e){
-            if(mouseDown && context){
+            if((mouseDown && context)){
                 start = {
                     x: end.x,
                     y: end.y
                 }
-
+                
                 end = {
-                    // x: e.clientX - canvasOffsetLeft,
                     x: e.clientX - canvasOffsetLeft,
-                    // y: e.clientY - canvasOffsetTop
                     y: e.pageY - canvasOffsetTop
                 };
-
-                context.beginPath();
-                context.moveTo(start.x, start.y);
-                context.lineTo(end.x, end.y);
-                context.strokeStyle = '#000';
-                context.lineWidth = 2;
-                context.stroke();
-                context.closePath();
+                
+                    context.beginPath();
+                    context.moveTo(start.x, start.y);
+                    context.lineTo(end.x, end.y);
+                    context.strokeStyle = '#000';
+                    context.lineWidth = 1;
+                    context.stroke();
+                    context.closePath();
             }
         }
 
@@ -102,12 +98,42 @@ const Canvas = props => {
         context.drawImage(contract, 0, 0);
     }
 
+    const adoptSignature = () => {
+        context.font = '30px Cedarville Cursive, cursive';
+        context.fillText(signature, 90, 720);
+        setPreviewSignature(false);
+        setModalView(false); 
+    }
+
     return (
-        <section>
+        <section className='canvas'>
             <canvas height='900px' width='695px' ref={canvasRef} {...props}/>
             <br/>
-            <button id='save-btn' onClick={saveContract}>Save</button>
-            <button id='clear-btn' onClick={clearSignature}>Clear</button>
+            <section>
+                <button id='save-btn' onClick={saveContract}>Save</button>
+                <button id='clear-btn' onClick={clearSignature}>Clear</button>
+                <button id='create-btn' onClick={() => setModalView(true)}>Create</button>
+            </section>
+            {modalView
+                ? (
+                    <section className='modal-backdrop'>
+                        <section className='signature-modal'>
+                            <h3>Type your name</h3>
+                            <input value={signature} onChange={e => setSignature(e.target.value)}/>
+                            <button onClick={() => setPreviewSignature(true)}>Preview</button>
+                            {previewSignature
+                                ? (
+                                    <section>
+                                        <p id='signature-preview'>{signature}</p>
+                                        <button onClick={() => setPreviewSignature(false)}>Change</button>
+                                        <button id='adopt-signature' onClick={adoptSignature}>Adopt</button>
+                                    </section>
+                                )
+                                : null}
+                        </section>
+                    </section>
+                )
+                : null}
         </section>
     )
 }

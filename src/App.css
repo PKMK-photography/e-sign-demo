@@ -2,10 +2,15 @@
   min-height: 100vh;
   box-sizing: border-box;
   padding: 0 100px;
+  background: #eee;
+}
+
+.canvas {
+  width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #eee;
 }
 
 button {
@@ -25,4 +30,29 @@ button {
 #clear-btn {
   background: #FF4F4F;
   color: white;
+  margin-right: 5px;
+}
+
+#create-btn {
+  background: #0DAB76;
+  color: white;
+}
+
+.modal-backdrop {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background: rgba(0,0,0,.6);
+}
+
+.signature-modal {
+  height: 350px;
+  width: 800px;
+  background: white;
+}
+
+#signature-preview {
+  font-family: 'Cedarville Cursive', cursive;
+  font-size: 24px;
 }
