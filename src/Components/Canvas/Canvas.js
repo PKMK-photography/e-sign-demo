@@ -1,4 +1,5 @@
 import {useState, useEffect, useRef} from 'react';
+import axios from 'axios';
 import contractImage from '../../assets/e-sign-demo-contract.png';
 const contract = new Image();
 contract.src = contractImage;
@@ -87,10 +88,20 @@ const Canvas = props => {
         }
     }, [context]);
 
-    const saveContract = () => {
-        const image = canvasRef.current.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    const saveContract = async () => {
+        const image = await canvasRef.current.toDataURL("image/png")
+        
 
-        window.location.href=image;
+        const configHeaders = {
+            "content-type": "image/png",
+            "Accept": "application/json"
+        };
+
+        axios.post('/api/email', {image: image}, {
+            headers: configHeaders
+        })
+
+        window.location.href=image.replace("image/png", "image/octet-stream");
     }
 
     const clearSignature = () => {
