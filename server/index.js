@@ -7,7 +7,6 @@ app.use(express.json({type: ['application/json', 'image/png'], limit: '500kb'}))
 
 app.post('/api/email', async function(req, res){
     const {image} = req.body;
-    console.log(image)
 
     try {
         let transporter = nodemailer.createTransport({
